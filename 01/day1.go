@@ -41,7 +41,7 @@ func part2(n int) int64 {
 		}
 	}
 
-	return sum(sumOfInventories[:n])
+	return utils.Sum(sumOfInventories[:n])
 }
 
 func parseElvesInventory(input []string) map[int][]int64 {
