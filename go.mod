@@ -1,4 +1,4 @@
-module github.com/cjavad/advent_of_code_2022/02
+module github.com/cjavad/advent_of_code_2022
 
 go 1.19
 

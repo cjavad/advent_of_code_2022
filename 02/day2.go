@@ -1,10 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 
+	utils "github.com/cjavad/advent_of_code_2022"
 	"golang.org/x/exp/slices"
 )
 
@@ -16,7 +15,7 @@ func main() {
 }
 
 func part1() int {
-	lines := read_input("input.txt")
+	lines := utils.ReadInput("input.txt")
 	sum := 0
 	for _, line := range lines {
 		sum += score_from_string(line)
@@ -25,26 +24,12 @@ func part1() int {
 }
 
 func part2() int {
-	lines := read_input("input.txt")
+	lines := utils.ReadInput("input.txt")
 	sum := 0
 	for _, line := range lines {
 		sum += reverse_score_from_string(line)
 	}
 	return sum
-}
-
-func read_input(inputfile string) []string {
-	input, err := os.Open(inputfile)
-	if err != nil {
-		panic(err)
-	}
-	defer input.Close()
-	var lines []string
-	scanner := bufio.NewScanner(input)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines
 }
 
 func print_output(x int) {

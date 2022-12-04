@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
+
+	utils "github.com/cjavad/advent_of_code_2022"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 
 func part1() int64 {
 	highestTotal := int64(0)
-	inventories := parseElvesInventory(readInput("input.txt"))
+	inventories := parseElvesInventory(utils.ReadInput("input.txt"))
 	sumOfInventories := getSumArray(inventories)
 
 	for _, total := range sumOfInventories {
@@ -28,7 +28,7 @@ func part1() int64 {
 
 func part2(n int) int64 {
 	// Finds n highest numbers in the input
-	inventories := parseElvesInventory(readInput("input.txt"))
+	inventories := parseElvesInventory(utils.ReadInput("input.txt"))
 	sumOfInventories := getSumArray(inventories)
 	// Sort sumOfInventories
 	// Return the first n numbers
@@ -42,21 +42,6 @@ func part2(n int) int64 {
 	}
 
 	return sum(sumOfInventories[:n])
-}
-
-func readInput(inputfile string) []string {
-	// Read the input file
-	input, err := os.Open(inputfile)
-	if err != nil {
-		panic(err)
-	}
-	defer input.Close()
-	var lines []string
-	scanner := bufio.NewScanner(input)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines
 }
 
 func parseElvesInventory(input []string) map[int][]int64 {
@@ -88,15 +73,7 @@ func parseElvesInventory(input []string) map[int][]int64 {
 func getSumArray(input map[int][]int64) []int64 {
 	sumArray := make([]int64, len(input))
 	for i := 0; i < len(input); i++ {
-		sumArray[i] = sum(input[i])
+		sumArray[i] = utils.Sum(input[i])
 	}
 	return sumArray
-}
-
-func sum(input []int64) int64 {
-	sum := int64(0)
-	for _, item := range input {
-		sum += item
-	}
-	return sum
 }
