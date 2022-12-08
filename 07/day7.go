@@ -46,14 +46,11 @@ func part2() {
 	fs := parse_filesystem(parse_terminal(utils.ReadInput("input.txt")))
 	all_dirs := get_all_directories(fs, 70_000_000)
 	pretty_print_fs(all_dirs, 0)
-	root_size := 0
-	for _, entry := range fs {
-		root_size += entry.size
-	}
+	root_size := sum_fs(fs)
 	free_space := total_space - root_size
 	missing_space := free_space_require - free_space
-	// Find directory that is closest to missing_space
 
+	// Find directory that is closest to missing_space
 	curr_index := 0
 	space_diff := missing_space
 
@@ -74,10 +71,7 @@ func part2() {
 func pretty_print_fs(fs []fs_entry, indent int) {
 	// Calculate size of root directory
 	if indent == 0 {
-		root_size := 0
-		for _, entry := range fs {
-			root_size += entry.size
-		}
+		root_size := sum_fs(fs)
 		fmt.Printf("/ %d\n", root_size)
 	}
 	for _, entry := range fs {
@@ -209,14 +203,6 @@ func parse_filesystem(terminal []map[string][]string) []fs_entry {
 }
 
 func parse_ls_output(output []string) []fs_entry {
-	// Returns a list of maps structured as follows:
-	// [
-	// 	{
-	// 		"name": size",
-	// 		...
-	// 	},
-	// ]
-
 	r := make([]fs_entry, 0)
 
 	// Use fmt.Sscanf to parse the output
