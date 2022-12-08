@@ -7,11 +7,7 @@ import (
 )
 
 func main() {
-	part1()
-}
-
-func part1() {
-	tree_map := parse_tree_map(utils.ReadInput("input.test.txt"))
+	tree_map := parse_tree_map(utils.ReadInput("input.txt"))
 	score_map := make([][]int, len(tree_map))
 	for i := range score_map {
 		score_map[i] = make([]int, len(tree_map[i]))
@@ -80,17 +76,6 @@ func part1() {
 	fmt.Printf("Part 2: %d\n", max_score)
 }
 
-func directional_tree_map(arr [][]int) [][][]bool {
-	visible := make([][][]bool, len(arr))
-	for i := range visible {
-		visible[i] = make([][]bool, len(arr[i]))
-		for j := range visible[i] {
-			visible[i][j] = is_visible(arr, i, j)
-		}
-	}
-	return visible
-}
-
 func parse_tree_map(input []string) [][]int {
 	arr := make([][]int, len(input))
 	for i, line := range input {
@@ -100,6 +85,21 @@ func parse_tree_map(input []string) [][]int {
 		}
 	}
 	return arr
+}
+
+/*
+Unused function for boolean approach, potentially faster but you cannot extract score after processing
+*/
+
+func directional_tree_map(arr [][]int) [][][]bool {
+	visible := make([][][]bool, len(arr))
+	for i := range visible {
+		visible[i] = make([][]bool, len(arr[i]))
+		for j := range visible[i] {
+			visible[i][j] = is_visible(arr, i, j)
+		}
+	}
+	return visible
 }
 
 // Top, Left, Right, Bottom
